@@ -12,11 +12,14 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import PersonIcon from "@mui/icons-material/Person";
-import LocalMallIcon from "@mui/icons-material/LocalMall";
+
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Drawer } from "@mui/material";
+import { useSelector } from 'react-redux';
+
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,7 +61,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
-  const [products, setProducts] = useState([]); // Data store karne ke liye state
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -66,8 +69,7 @@ export default function Header() {
         const response = await axios.get(
           "https://api.escuelajs.co/api/v1/products"
         );
-        setProducts(response.data); // Data ko state mein set kar rahe hain
-        console.log(response.data, "products");
+        setProducts(response.data);
       } catch (error) {
         console.error("Error fetching the product:", error);
       }
@@ -76,28 +78,16 @@ export default function Header() {
     fetchProduct();
   }, []);
 
-  // Baaki ka Header code waise hi chalega
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [openDrawer, setOpenDrawer] = useState(false); // State for Drawer
 
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const itemCounts = useSelector((state) => state.counter);
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  console.log(itemCounts);
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
+  // Open Drawer function
+  const toggleDrawer = () => {
+    setOpenDrawer(!openDrawer); // Toggle Drawer state
   };
 
   const menuId = "primary-search-account-menu";
@@ -114,67 +104,14 @@ export default function Header() {
         vertical: "top",
         horizontal: "right",
       }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
+      open={Boolean(anchorEl)}
+      onClose={() => setAnchorEl(null)}
     >
-      <MenuItem className="text-black" onClick={handleMenuClose}>
+      <MenuItem onClick={() => setAnchorEl(null)}>
         <Link to={"/sign-in"}>Profile</Link>
       </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        {" "}
+      <MenuItem onClick={() => setAnchorEl(null)}>
         <Link to={"/my-account"}>My account</Link>
-      </MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <FavoriteIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <PersonIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <LocalMallIcon />
-        </IconButton>
-        <p>Profile</p>
       </MenuItem>
     </Menu>
   );
@@ -227,7 +164,7 @@ export default function Header() {
                 color="inherit"
               >
                 <Badge badgeContent={17} color="error">
-                  <PersonIcon />
+                  <ShoppingCartIcon onClick={toggleDrawer} />
                 </Badge>
               </IconButton>
               <IconButton
@@ -236,46 +173,53 @@ export default function Header() {
                 aria-label="account of current user"
                 aria-controls={menuId}
                 aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
+                onClick={(e) => setAnchorEl(e.currentTarget)}
                 color="inherit"
               >
                 <AccountCircle />
               </IconButton>
             </Box>
-            <Box sx={{ display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="show more"
-                aria-controls={mobileMenuId}
-                aria-haspopup="true"
-                onClick={handleMobileMenuOpen}
-                color="inherit"
-              >
-                <LocalMallIcon />
-              </IconButton>
-            </Box>
           </Toolbar>
         </AppBar>
-        {renderMobileMenu}
-        {renderMenu}
       </Box>
-      {/* Displaying Product Data */}
+
+      {/* Drawer component */}
+      <Drawer open={openDrawer} onClose={toggleDrawer}>
+        <div>
+          <Typography
+            className="text-center text-primary"
+            width={300}
+            variant="h6"
+          >
+            Cart Contents
+          </Typography>
+          {/* Add your cart items here */}
+        </div>
+      </Drawer>
+
       <div className="container">
-  <h2>Products:</h2>
-  <div className="row">
-    {products.map((product) => (
-      <div className="col-md-3 col-sm-6" key={product.id}>
-        <div className="card">
-          <img src={product.images} className="card-img-top" alt={product.title} />
-          <div className="card-body">
-            <h5 className="card-title">{product.title}</h5>
-          </div>
+        <h2>Products:</h2>
+        <div className="row">
+          {products.map((product) => (
+            <div className="col-md-3 col-sm-6" key={product.id}>
+              <div className="card">
+                <img
+                  src={product.images[0]}
+                  className="card-img-top"
+                  alt={product.title}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{product.title}</h5>
+                  <p className="card-text">{product.description}</p>
+                  <a href="#" className="btn btn-primary">
+                    Add to Cart
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-    ))}
-  </div>
-</div>
-
     </>
   );
 }

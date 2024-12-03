@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-// Validation Schema
+
 const signinSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
   secondName: yup.string().required("Second Name is required"),
@@ -42,7 +42,7 @@ const Signup = () => {
   });
 
   const onSubmit = (data) => {
-    console.log("Form Data:", data); // Logs all form data to console
+    console.log("Form Data:", data); 
   };
 
   const handleClickShowPassword = () => {
