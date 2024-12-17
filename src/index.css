@@ -1,0 +1,19 @@
+.title-truncate {
+    white-space: nowrap; /* Prevent wrapping to next line */
+    overflow: hidden;    /* Hide overflowing text */
+    text-overflow: ellipsis; /* Add ellipsis (...) to the truncated text */
+    max-width: 100%;    /* Optional: Set max width for better control */
+    display: block;     /* Ensure it's a block element */
+  }
+  .swiper-slide img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .card-title {
+    white-space: nowrap;       /* Text ek hi line mein rahe */
+    overflow: hidden;          /* Extra text hide ho jaye */
+    text-overflow: ellipsis;   /* Text ke aage dots lag jayein */
+  }
+    
