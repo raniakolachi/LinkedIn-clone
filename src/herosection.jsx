@@ -37,37 +37,41 @@ const Herosection = () => {
       <Box>
       <Drawer open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
   <div>
-    <Typography className="text-center text-primary" style={{ width: 300 }} variant="h6">
+    <Typography className="text-center text-primary " style={{ width: 300 }} variant="h6">
       Cart Contents
-    </Typography>
-    {cartItems.map((item, index) => (
-      <div key={index} className="cart-item">
-      
-        <img 
-          src={item.image || "https://api.escuelajs.co/api/v1/products"} 
-          alt={item.name} 
-          style={{ width: '100%' }} 
-         
-          
-        />
+     
+      </Typography>
+  {cartItems.map((item, index) => (
+    <div key={index} className="cart-item d-flex">
+      <img 
+      src={item?.image || item?.images?.[0] || "https://via.placeholder.com/150"} 
+      alt={item?.name || item?.title || "No Name"} 
+      style={{ width: '100px' }} 
+    />
+
         <Typography variant="body1">{item.name}</Typography>
         <Typography variant="body2">${item.price}</Typography>
-        <div>
-          <button onClick={() => dispatch(increaseQuantity(item))}>
+        <div className="d-flex flex-column ">
+          <button className="rounded-1 border-danger bg-white" onClick={() => dispatch(increaseQuantity(item))}>
             <AddIcon fontSize="small" />
           </button>
           <span>{item.quantity}</span>
-          <button onClick={() => dispatch(decreaseQuantity(item))}>
+          <button className="rounded-1 border-danger bg-white" onClick={() => dispatch(decreaseQuantity(item))}>
             <RemoveIcon fontSize="small" />
           </button>
-        </div>
-        <button onClick={() => dispatch(deleteProduct(item))}>
+       
+        <button className=" text-danger rounded-1 border-danger bg-white" onClick={() => dispatch(deleteProduct(item))}>
           <DeleteIcon fontSize="small" />
         </button>
+        </div>
       </div>
+       
     ))}
+   
   </div>
+  
 </Drawer>
+
 
 
         <Autocomplete
