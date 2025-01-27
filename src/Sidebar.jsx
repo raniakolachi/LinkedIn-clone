@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, Box, useMediaQuery } from "@mui/material";
 import { Home, SupervisorAccount, BusinessCenter, Message, Notifications } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
@@ -44,6 +45,7 @@ const Sidebar = () => {
               borderRadius: "10px 10px 0 0",
             }}
           >
+            <Link to="/profile-details">
            
             <img
               className="rounded-6"
@@ -54,9 +56,11 @@ const Sidebar = () => {
                 marginTop: '20px',
                 border: "2px solid white",
               }}
+              
               src="https://media.licdn.com/dms/image/v2/D5603AQE40U7x-Z5jgA/profile-displayphoto-shrink_400_400/B56ZSRsJbqHwAg-/0/1737611057507?e=1743638400&v=beta&t=tjKaZuEkBPM8j6mLWpT214-vCnG3d0etwZHQrNPx1s8"
               alt="Rania Majeed"
             />
+            </Link>
            
             
           </Box>
