@@ -1,27 +1,27 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import './App.css';
+import "./App.css";
 import Header from './Header';
-import Signin from "./Signin";
-import { Provider } from 'react-redux';
-import { Routes, Route } from 'react-router-dom';
-import store from './Source/store';
-import Herosection from "./herosection"; 
+import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
+import { LinkedIn, Home, Work, Notifications } from '@mui/icons-material';
+import HomePage from "./HomePage";
+import SecondarySidebar from "./Secondary Sidebar";
+
+
+
 
 function App() {
   return (
-    <Provider store={store}> 
+    
       <div>
-        <Header />
-        
-        <Herosection /> 
-        
-        <Routes>
-          <Route path="/signin" element={<Signin />} />
-        </Routes>
+        <Header></Header>
+        <HomePage></HomePage>
+        <SecondarySidebar></SecondarySidebar>
+          
+          
       </div>
-    </Provider>
+    
   );
 }
 

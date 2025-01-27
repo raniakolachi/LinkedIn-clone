@@ -1,114 +1,85 @@
-import React, { useState, useEffect } from "react";
-import herosection from "./herosection"; 
-import Drawer from "@mui/material/Drawer";
-import Typography from "@mui/material/Typography";
-import Badge from "@mui/material/Badge";
-import IconButton from "@mui/material/IconButton";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import MenuIcon from "@mui/icons-material/Menu";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import { Link } from "react-router-dom"; 
-
+import React from "react";
+import { AppBar, Toolbar, IconButton, InputBase, Box, Typography } from "@mui/material";
+import {
+  LinkedIn,
+  Search,
+  Home,
+  SupervisorAccount,
+  BusinessCenter,
+  Message,
+  Notifications,
+} from "@mui/icons-material";
+import "bootstrap/dist/css/bootstrap.min.css";
 const Header = () => {
-  const [cart, setCart] = useState([]); 
-  const [openDrawer, setOpenDrawer] = useState(false); 
-  const [anchorEl, setAnchorEl] = useState(null); 
-
-  
-  const addToCart = (product) => {
-    setCart([...cart, product]); 
-  };
-
-  
-  const toggleDrawer = () => {
-    setOpenDrawer(!openDrawer); 
-  };
-
-  const menuId = "account-menu"; 
-  const renderMenu = (
-    <div>
-      
-      <Link to="/profile">Profile</Link>
-      <Link to="/account">My Account</Link>
-    </div>
-  );
-
   return (
-    <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-          
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="open menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
+    <AppBar position="sticky" className="bg-body-secondary text-black">
+      <Toolbar className="container-fluid d-flex justify-content-between align-items-center">
+       
+        <Box className="d-flex align-items-center">
+          <IconButton color="inherit">
+            <LinkedIn className="text-primary" style={{ fontSize: "40px" }} />
+          </IconButton>
+          <InputBase
+            className="ms-2"
+            style={{
+              backgroundColor: "#ffffff",
+              borderRadius: "8px",
+              width: "250px",
+            }}
+            placeholder="Search"
+            startAdornment={
+              <IconButton>
+                <Search />
+              </IconButton>
+            }
+          />
+        </Box>
 
-            
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ display: { xs: "none", sm: "block" } }}
-            >
-              My Shop
+        
+        <Box className="d-flex align-items-center">
+          <div className="d-flex flex-column align-items-center mx-3">
+            <IconButton color="inherit">
+              <Home />
+            </IconButton>
+            <Typography variant="caption" className="text-black">
+              Home
             </Typography>
-
-           
-            <Box sx={{ flexGrow: 1 }} />
-
-           
-            <IconButton size="large" color="inherit" onClick={toggleDrawer}>
-              <Badge badgeContent={cart.length} color="error">
-                <ShoppingCartIcon />
-              </Badge>
+          </div>
+          <div className="d-flex flex-column align-items-center mx-3">
+            <IconButton color="inherit">
+              <SupervisorAccount />
             </IconButton>
-
-            
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={(e) => setAnchorEl(e.currentTarget)}
-              color="inherit"
-            >
-              <AccountCircle />
+            <Typography variant="caption" className="text-black">
+              My Network
+            </Typography>
+          </div>
+          <div className="d-flex flex-column align-items-center mx-3">
+            <IconButton color="inherit">
+              <BusinessCenter />
             </IconButton>
-          </Toolbar>
-        </AppBar>
-      </Box>
-
-      
-      <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer}>
-        <div style={{ width: 450, padding: 20 }}>
-          <Typography variant="h6" className="text-center text-primary">
-            Cart Contents
-          </Typography>
-          {cart.length > 0 ? (
-            cart.map((product, index) => (
-              <Typography key={index}>
-                {product.title} - ${product.price}
-              </Typography>
-            ))
-          ) : (
-            <Typography>No items in cart</Typography>
-          )}
-        </div>
-      </Drawer>
-
-     
-      <herosection addToCart={addToCart} />
-    </>
+            <Typography variant="caption" className="text-black">
+              Jobs
+            </Typography>
+          </div>
+          <div className="d-flex flex-column align-items-center mx-3">
+            <IconButton color="inherit">
+              <Message />
+            </IconButton>
+            <Typography variant="caption" className="text-black">
+              Messages
+            </Typography>
+          </div>
+          <div className="d-flex flex-column align-items-center mx-3">
+            <IconButton color="inherit">
+              <Notifications />
+            </IconButton>
+            <Typography variant="caption" className="text-black">
+              Notifications
+            </Typography>
+          </div>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 };
 
