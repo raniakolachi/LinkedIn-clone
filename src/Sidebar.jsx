@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, Box, useMediaQuery } from "@mui/material";
+import { Drawer, List, ListItem, ListItemIcon, ListItemText, Box, useMediaQuery, Typography } from "@mui/material";
 import { Home, SupervisorAccount, BusinessCenter, Message, Notifications } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { Card } from "react-bootstrap";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
-  const isSmallScreen = useMediaQuery("(max-width:600px)");
+  const isSmallOrMediumScreen = useMediaQuery("(max-width:960px)"); 
 
   return (
+    <>
     <Box>
-      {!isSmallScreen && (
+      {!isSmallOrMediumScreen && (
         <Drawer
           sx={{
             width: 240,
@@ -30,7 +32,6 @@ const Sidebar = () => {
           anchor="left"
           open={open}
         >
-         
           <Box
             style={{
               height: "50px",
@@ -39,69 +40,80 @@ const Sidebar = () => {
               backgroundSize: "cover",
               backgroundPosition: "center",
               display: "flex",
-              justifyContent: "center", 
-              alignItems: "center", 
-              padding: "10px",
-              borderRadius: "10px 10px 0 0",
+              justifyContent: "center",
+              alignItems: "center",
+             
+              borderRadius: "10px 10px ",
             }}
           >
             <Link to="/profile-details">
-           
-            <img
-              className="rounded-6"
-              style={{
-                width: "60px",
-                height: "60px",
-                borderRadius: "50%",
-                marginTop: '20px',
-                border: "2px solid white",
-              }}
-              
-              src="https://media.licdn.com/dms/image/v2/D5603AQE40U7x-Z5jgA/profile-displayphoto-shrink_400_400/B56ZSRsJbqHwAg-/0/1737611057507?e=1743638400&v=beta&t=tjKaZuEkBPM8j6mLWpT214-vCnG3d0etwZHQrNPx1s8"
-              alt="Rania Majeed"
-            />
+              <img
+                className="rounded-6"
+                style={{
+                  width: "60px",
+                  height: "60px",
+                  borderRadius: "50%",
+                  marginTop: "20px",
+                  border: "2px solid white",
+                }}
+                src="https://media.licdn.com/dms/image/v2/D5603AQE40U7x-Z5jgA/profile-displayphoto-shrink_400_400/B56ZSRsJbqHwAg-/0/1737611057507?e=1743638400&v=beta&t=tjKaZuEkBPM8j6mLWpT214-vCnG3d0etwZHQrNPx1s8"
+                alt="Rania Majeed"
+              />
             </Link>
-           
-            
           </Box>
 
-          
           <List>
-          <ListItem style={{ color: "black",   }}>Rania Majeed</ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <Home sx={{ color: "black" }} />
-              </ListItemIcon>
-              <ListItemText primary="Home" sx={{ color: "black" }} />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <SupervisorAccount sx={{ color: "black" }} />
-              </ListItemIcon>
-              <ListItemText primary="My Network" sx={{ color: "black" }} />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <BusinessCenter sx={{ color: "black" }} />
-              </ListItemIcon>
-              <ListItemText primary="Jobs" sx={{ color: "black" }} />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <Message sx={{ color: "black" }} />
-              </ListItemIcon>
-              <ListItemText primary="Messages" sx={{ color: "black" }} />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <Notifications sx={{ color: "black" }} />
-              </ListItemIcon>
-              <ListItemText primary="Notifications" sx={{ color: "black" }} />
+            <ListItem>
+              <ListItemText
+                primary="Rania Majeed"
+                secondary={
+                  <>
+                    <Typography variant="body2" color="textSecondary">
+                      Frontend Web Developer | HTML5 | CSS3 | JavaScript | React.js
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      Karachi Division, Sindh
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      xWave
+                    </Typography>
+                  </>
+                }
+                sx={{ color: "black" }}
+              />
             </ListItem>
           </List>
-        </Drawer>
-      )}
+          <Box sx={{ width: '100%', maxWidth: 600, margin: '0 auto' }}>
+      <Card sx={{ boxShadow: 3, padding: 3 }}>
+        <List>
+          <ListItem>
+            <ListItemText
+              primary="Manage your"
+              secondary={
+                <>
+                  <Typography variant="body2" color="textSecondary">
+                   Notifications
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    View Settings
+                  </Typography>
+                  
+                </>
+              }
+              sx={{ color: "black" }}
+            />
+          </ListItem>
+        </List>
+      </Card>
     </Box>
+        </Drawer>
+        
+      )}
+      
+    
+    </Box>
+    
+    </>
   );
 };
 

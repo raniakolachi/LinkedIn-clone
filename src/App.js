@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./HomePage";
 import SecondarySidebar from "./Secondary Sidebar";
 import ProfileDetails from "./Profile Details page";
+import JobsPage from "./JobsPage";
 
 function App() {
   return (
@@ -15,9 +16,9 @@ function App() {
         {/* Common Header */}
         <Header />
 
-        {/* Define Routes */}
+       
         <Routes>
-          {/* Route for Home Page */}
+          
           <Route
             path="/"
             element={
@@ -28,7 +29,10 @@ function App() {
             }
           />
 
-          {/* Route for Profile Details Page */}
+         
+          <Route path="/jobs" element={<JobsPage />} />
+
+         
           <Route path="/profile-details" element={<ProfileDetails />} />
         </Routes>
       </div>

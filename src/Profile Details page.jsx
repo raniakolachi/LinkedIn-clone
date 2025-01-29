@@ -14,12 +14,12 @@ const ProfileDetails = () => {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           objectFit: "cover",
-          height: "40vh", // Banner height
-          width: "80%",
+          height: "40vh", 
+          width: window.innerWidth >= 992 ? "80%" : "100%", 
           position: "relative",
         }}
       >
-        {/* Profile Image inside the Banner */}
+
         <div
           style={{
             position: "absolute",
@@ -46,9 +46,9 @@ const ProfileDetails = () => {
         </div>
       </div>
 
-      {/* Profile Details Section */}
+      
       <Container className="pt-5">
-        {/* Profile Text and Info */}
+        
         <Row>
           <Col md={12} >
             <Typography variant="h4" gutterBottom style={{ fontWeight: "bold" }}>
@@ -69,19 +69,23 @@ const ProfileDetails = () => {
             >
               Karachi Division, Sindh, Pakistan | raniamajeed554@gmail.com
             </Typography>
-            <Button variant="primary" className="mt-3">
-              Contact Me
-            </Button>
-            <Button variant="primary" className="mt-3 mx-3">
-              Contact Me
-            </Button>
-            <Button variant="primary" className="mt-3">
-              Contact Me
-            </Button>
+            <Button variant="outline-primary" className="mt-3 rounded-pill text-white border-white bg-primary">
+  Open to
+</Button>
+<Button variant="outline-primary" className="mt-3 mx-3 rounded-pill text-primary border-primary bg-white">
+  Add profile section
+</Button>
+<Button variant="outline-primary" className="mt-3 rounded-pill text-primary border-primary bg-white">
+  Enhance profile
+</Button>
+<Button variant="outline-primary" className="mt-3 ms-3 rounded-pill text-primary border-primary bg-white">
+  Resources
+</Button>
+
           </Col>
         </Row>
 
-        {/* Divider */}
+
         <Divider
           style={{
             backgroundColor: "#fff",
@@ -90,7 +94,7 @@ const ProfileDetails = () => {
           }}
         />
 
-        {/* About Section */}
+        
         <Row>
           <Col md={12} >
             <Typography

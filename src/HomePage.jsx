@@ -2,7 +2,10 @@ import React from 'react';
 import Sidebar from './Sidebar'; 
 import Image from './assets/image.jpg';
 import Skill from './assets/Skills.png';
-
+import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
+import PhotoSizeSelectActualIcon from '@mui/icons-material/PhotoSizeSelectActual';
+import ArtTrackIcon from '@mui/icons-material/ArtTrack';
+import { Grid } from '@mui/material';
 import { Box, Typography, Card, Button, InputBase, IconButton } from '@mui/material';
 import { Repeat, Search, Send, ThumbDown, ThumbUp, Comment } from '@mui/icons-material';
 
@@ -22,24 +25,72 @@ const HomePage = () => {
             p: 3 
           }}
         >
-          
+          <div className='d-flex'>
+          <div >
+          <img className='rounded-5 me-4' height={50}  src='https://media.licdn.com/dms/image/v2/D5603AQE40U7x-Z5jgA/profile-displayphoto-shrink_100_100/B56ZSRsJbqHwAU-/0/1737611057507?e=1743638400&v=beta&t=z3cvtEPHW8hHsvAC2ETigwVguKqJVsoMzYgULpu8Rt8'></img>
+          </div>
+          <div>
           <InputBase
             sx={{
               backgroundColor: 'white',
               borderRadius: 5,
               color: 'black',
-              width: '100%',
-              maxWidth: 600,
+              
+              width: { xs: '100%', sm: '230%', md: '240%' },
              
               boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
             }}
-            placeholder="Search"
+            placeholder="Start a post"
             startAdornment={
               <IconButton>
+              
                 <Search />
               </IconButton>
             }
+            
           />
+          
+          </div>
+          </div>
+          <Grid container spacing={2}>
+              {/* Video Section */}
+              <Grid item xs={3} sm={2}>
+                <Box sx={{ display: 'flex', alignItems: 'center'  }}>
+                  <IconButton>
+                    <SmartDisplayIcon />
+                  </IconButton>
+                  <div>Video</div>
+                </Box>
+              </Grid>
+
+              {/* Photo Section */}
+              <Grid item xs={3} sm={2}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <IconButton>
+                    <PhotoSizeSelectActualIcon />
+                  </IconButton>
+                  <div>Photos</div>
+                </Box>
+              </Grid>
+
+           
+              <Grid item xs={3} sm={2}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <IconButton>
+                    <ArtTrackIcon />
+                  </IconButton>
+                  <div>Articles</div>
+                </Box>
+                
+              </Grid>
+              <Button
+              variant="contained"
+              color="primary"
+              sx={{ mt: 2, borderRadius: '50px', textTransform: 'none' }}
+            >
+              Post
+            </Button>
+            </Grid>
 
          
           <Card
@@ -81,6 +132,9 @@ const HomePage = () => {
                   style={{ width: 70, height: 70, borderRadius: '50%' }}
                 />
                 <Typography>
+                <Typography>
+                 Alia Nawaz
+                </Typography>
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit, vitae nemo
                   assumenda nostrum laudantium modi magnam cum neque quaerat sed atque alias
                   necessitatibus nisi obcaecati iure perferendis quos nesciunt deleniti.

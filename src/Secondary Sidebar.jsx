@@ -20,7 +20,7 @@ const SecondarySidebar = () => {
           top: '0',
           height: 'auto', 
           boxShadow: 3, 
-          display: { xs: 'none', sm: 'block' },
+          display: { xs: 'none', sm: 'none' , lg: 'block'},
         }}
       >
          <img
