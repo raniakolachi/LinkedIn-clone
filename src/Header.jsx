@@ -52,7 +52,15 @@ const Header = () => {
                 { text: "Jobs", icon: <BusinessCenter />, path: "/jobs" }, 
                 { text: "Messages", icon: <Message />, path: "#" },
                 { text: "Notifications", icon: <Notifications />, path: "#" },
-                { text: "Me", icon: <Avatar src="https://media.licdn.com/dms/image/v2/D5603AQE40U7x-Z5jgA/profile-displayphoto-shrink_400_400/B56ZSRsJbqHwAg-/0/1737611057507?e=1743638400&v=beta&t=tjKaZuEkBPM8j6mLWpT214-vCnG3d0etwZHQrNPx1s8" alt="Profile" />, path: "/profile-details" }, // Avatar for "Me"
+                { 
+                  text: "Me", 
+                  icon: <Avatar 
+                           src="https://media.licdn.com/dms/image/v2/D5603AQE40U7x-Z5jgA/profile-displayphoto-shrink_400_400/B56ZSRsJbqHwAg-/0/1737611057507?e=1743638400&v=beta&t=tjKaZuEkBPM8j6mLWpT214-vCnG3d0etwZHQrNPx1s8" 
+                           alt="Profile" 
+                           sx={{ width: 24, height: 24 }} // Chhota size
+                         />, 
+                  path: "/profile-details" 
+                },
               ].map((item, index) => (
                 <Link to={item.path} className="text-decoration-none text-black" key={index}>
                   <div className="d-flex flex-column align-items-center mx-2">
