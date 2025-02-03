@@ -11,8 +11,10 @@ import {
 import { Accordion, AccordionSummary, AccordionDetails, FormControlLabel, Checkbox } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
 
+
 function JobSidebar() {
   return (
+    <>
     <Card sx={{ height: "100%" }}>
       <CardContent>
         <Typography variant="h6">Filters</Typography>
@@ -65,8 +67,11 @@ function JobSidebar() {
         </Accordion>
       </CardContent>
     </Card>
+    
+    </>
   );
 }
+
 
 function JobDetailsPage() {
   const [applied, setApplied] = useState(false);
@@ -144,5 +149,6 @@ function JobDetailsPage() {
     </Container>
   );
 }
+
 
 export default JobDetailsPage;

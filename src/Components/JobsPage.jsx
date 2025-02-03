@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Card, CardContent, Typography, Button, Box } from "@mui/material";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
+import Footer from "./Footer";
 
 const jobsData = [
   {
@@ -114,6 +115,7 @@ const Jobs = () => {
           </Col>
         </Row>
       </Container>
+      <Footer></Footer>
     </>
   );
 };

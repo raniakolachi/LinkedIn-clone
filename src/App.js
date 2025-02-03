@@ -8,7 +8,8 @@ import HomePage from "./Components/HomePage";
 import SecondarySidebar from "./Components/Secondary Sidebar";
 import ProfileDetails from "./Components/Profile Details page";
 import JobsPage from "./Components/JobsPage";
-import JobDetailsPage from "./Components/JobDetailsPage"; 
+import JobDetailsPage from "./Components/JobDetailsPage";
+import Footer from "./Components/Footer";
 
 function App() {
   return (
@@ -30,8 +31,8 @@ function App() {
           <Route path="/jobs" element={<JobsPage />} />
 
           <Route path="/profile-details" element={<ProfileDetails />} />
+          <Route path="/Footer" element={<Footer />} />
 
-         
           <Route path="/job-details" element={<JobDetailsPage />} />
         </Routes>
       </div>
