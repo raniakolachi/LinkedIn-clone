@@ -1,27 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from './Sidebar'; 
-import Image from './assets/image.jpg';
-import slide from './assets/slide-1 (1).jpg';
 import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
 import PhotoSizeSelectActualIcon from '@mui/icons-material/PhotoSizeSelectActual';
 import ArtTrackIcon from '@mui/icons-material/ArtTrack';
-import { Grid } from '@mui/material';
-import { Box, Typography, Card, Button, InputBase, IconButton } from '@mui/material';
-import { Repeat, Search, Send, ThumbDown, ThumbUp, Comment, Delete } from '@mui/icons-material';
+import { Grid, Box, Typography, Card, Button, InputBase, IconButton } from '@mui/material';
+import { Repeat, Send, ThumbUp, Comment, Delete } from '@mui/icons-material';
+import slide from './assets/slide-1 (1).jpg';
+import Image from './assets/image.jpg';
+import PostAddIcon from '@mui/icons-material/PostAdd';
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [postContent, setPostContent] = useState('');
 
+  
+  useEffect(() => {
+    const storedPosts = JSON.parse(localStorage.getItem('posts')) || [];
+    setPosts(storedPosts);
+  }, []);
+
+  
   const handlePost = () => {
     if (postContent.trim() !== '') {
-      setPosts([{ content: postContent, id: Date.now(),time: new Date().toLocaleString() }, ...posts]);
+      const newPost = { content: postContent, id: Date.now(), time: new Date().toLocaleString() };
+      const updatedPosts = [newPost, ...posts];
+
+      setPosts(updatedPosts);
+      localStorage.setItem('posts', JSON.stringify(updatedPosts)); 
       setPostContent('');
     }
   };
 
+  
   const handleDeletePost = (id) => {
-    setPosts(posts.filter(post => post.id !== id));
+    const updatedPosts = posts.filter(post => post.id !== id);
+    setPosts(updatedPosts);
+    localStorage.setItem('posts', JSON.stringify(updatedPosts)); 
   };
 
   return (
@@ -29,18 +43,10 @@ const HomePage = () => {
       <div style={{ display: 'flex' }}>
         <Sidebar />
         
-        <Box 
-          sx={{ 
-            flex: 1, 
-            display: 'flex', 
-            flexDirection: 'column', 
-            gap: 3, 
-            p: 3 
-          }}
-        >
+        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 3, p: 3 }}>
           <div className='d-flex'>
             <div>
-              <img className='rounded-5 me-4' height={50} src='https://media.licdn.com/dms/image/v2/D5603AQE40U7x-Z5jgA/profile-displayphoto-shrink_100_100/B56ZSRsJbqHwAU-/0/1737611057507?e=1743638400&v=beta&t=z3cvtEPHW8hHsvAC2ETigwVguKqJVsoMzYgULpu8Rt8'></img>
+              <img className='rounded-5 me-4' height={50} src='https://media.licdn.com/dms/image/v2/D5635AQGboRNCTDusBQ/profile-framedphoto-shrink_200_200/profile-framedphoto-shrink_200_200/0/1738561465276?e=1739167200&v=beta&t=5XpakMj5Ea7DqeUnNg-d58gbr2KEgAUcZurQvxb4Z50' />
             </div>
             <div>
               <InputBase
@@ -60,7 +66,7 @@ const HomePage = () => {
           </div>
           
           <Grid container spacing={3}>
-            <Grid item xs={2} sm={2}>
+            <Grid item xs={4} sm={2}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <IconButton className='text-success'>
                   <SmartDisplayIcon />
@@ -68,7 +74,7 @@ const HomePage = () => {
                 <div>Video</div>
               </Box>
             </Grid>
-            <Grid item xs={2} sm={2}>
+            <Grid item xs={4} sm={2}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <IconButton className='text-info'>
                   <PhotoSizeSelectActualIcon />
@@ -76,7 +82,7 @@ const HomePage = () => {
                 <div>Photos</div>
               </Box>
             </Grid>
-            <Grid item xs={3} sm={2}>
+            <Grid item xs={6} sm={2}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <IconButton className='text-danger'>
                   <ArtTrackIcon />
@@ -84,73 +90,79 @@ const HomePage = () => {
                 <div>Articles</div>
               </Box>
             </Grid>
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{ mt: 2, borderRadius: '50px', textTransform: 'none' }}
+            <PostAddIcon
+              variant="outlined"
+              color="warning"
+              sx={{ mt: 4, borderRadius: '4px', textTransform: 'none', }}
               onClick={handlePost}
             >
-              Post
-            </Button>
+              <Box>Post</Box>
+            
+            </PostAddIcon>
           </Grid>
+
+         
           {posts.map((post) => (
-  <Card 
-    key={post.id} 
-    sx={{ 
-      p: 3, 
-      maxWidth: { xs: '100%', sm: '90%', md: 600 }, 
-      boxShadow: 3, 
-      position: 'relative' ,
-       overflow: 'hidden',
-    }}
-  >
-    <Box display="flex" alignItems="center" gap={{ xs: 1, sm: 2 }}>
-      <img 
-        src="https://media.licdn.com/dms/image/v2/D5603AQE40U7x-Z5jgA/profile-displayphoto-shrink_400_400/B56ZSRsJbqHwAg-/0/1737611057507?e=1743638400&v=beta&t=tjKaZuEkBPM8j6mLWpT214-vCnG3d0etwZHQrNPx1s8" 
-        alt="User DP" 
-        style={{ width: 50, height: 50, borderRadius: '50%' }} 
-      />
-      <Box>
-        <Typography fontWeight="bold">Rania Majeed</Typography>
-        <Typography fontSize="small" color="gray">{post.time}</Typography>
-      </Box>
-    </Box>
+            <Card 
+              key={post.id} 
+              sx={{ 
+                p: 3, 
+                maxWidth: { xs: '100%', sm: '90%', md: 600 }, 
+                boxShadow: 3, 
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+            >
+              <Box display="flex" alignItems="center" gap={{ xs: 1, sm: 2 }}>
+                <img 
+                  src="https://media.licdn.com/dms/image/v2/D5635AQGboRNCTDusBQ/profile-framedphoto-shrink_200_200/profile-framedphoto-shrink_200_200/0/1738561465276?e=1739167200&v=beta&t=5XpakMj5Ea7DqeUnNg-d58gbr2KEgAUcZurQvxb4Z50" 
+                  alt="User DP" 
+                  style={{ width: 50, height: 50, borderRadius: '50%' }} 
+                />
+                <Box>
+                  <Typography fontWeight="bold">Rania Majeed</Typography>
+                  <Typography fontSize="small" color="gray">{post.time}</Typography>
+                </Box>
+              </Box>
 
-    <Typography sx={{ mt: 2 }}>{post.content}</Typography>
+              <Typography sx={{ mt: 2 }}>{post.content}</Typography>
 
-    <Box 
-      display="flex" 
-      justifyContent="space-between" 
-      alignItems="center" 
-      mt={2} 
-      flexWrap={{ xs: 'wrap', sm: 'nowrap' }}
-    >
-      <Box display="flex" alignItems="center" gap={1}>
-        <ThumbUp style={{ color: 'black' }} />
-        <Typography>Like</Typography>
-      </Box>
-      <Box display="flex" alignItems="center" gap={1}>
-        <Comment style={{ color: 'black' }} />
-        <Typography>Comment</Typography>
-      </Box>
-      <Box display="flex" alignItems="center" gap={1}>
-        <Repeat style={{ color: 'black' }} />
-        <Typography>Repost</Typography>
-      </Box>
-      <Box display="flex" alignItems="center" gap={1}>
-        <Send style={{ color: 'black' }} />
-        <Typography>Send</Typography>
-      </Box>
+              <Box 
+                display="flex" 
+                justifyContent="space-between" 
+                alignItems="center" 
+                mt={2} 
+                flexWrap={{ xs: 'wrap', sm: 'nowrap' }}
+              >
+                <Box display="flex" alignItems="center" gap={1}>
+                  <ThumbUp style={{ color: 'black' }} />
+                  <Typography>Like</Typography>
+                </Box>
+                <Box display="flex" alignItems="center" gap={1}>
+                  <Comment style={{ color: 'black' }} />
+                  <Typography>Comment</Typography>
+                </Box>
+                <Box display="flex" alignItems="center" gap={1}>
+                  <Repeat style={{ color: 'black' }} />
+                  <Typography>Repost</Typography>
+                </Box>
+                <Box display="flex" alignItems="center" gap={1}>
+                  <Send style={{ color: 'black' }} />
+                  <Typography>Send</Typography>
+                </Box>
 
-      <IconButton 
-        onClick={() => handleDeletePost(post.id)} 
-        sx={{ position: 'absolute', top: 10, right: 10 }}
-      >
-        <Delete style={{ color: 'red' }} />
-      </IconButton>
-    </Box>
-  </Card>
-))}
+                <IconButton 
+                  onClick={() => handleDeletePost(post.id)} 
+                  sx={{ position: 'absolute', top: 10, right: 10 }}
+                >
+                  <Delete style={{ color: 'red' }} />
+                </IconButton>
+              </Box>
+            </Card>
+          ))}
+      
+
+
 
             <Card sx={{ p: 3,  maxWidth: 600, overflow: 'hidden',  boxShadow: 3, mt: 3 }}> 
 

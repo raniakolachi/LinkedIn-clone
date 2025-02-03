@@ -57,7 +57,7 @@ const Header = () => {
                   icon: <Avatar 
                            src="https://media.licdn.com/dms/image/v2/D5603AQE40U7x-Z5jgA/profile-displayphoto-shrink_400_400/B56ZSRsJbqHwAg-/0/1737611057507?e=1743638400&v=beta&t=tjKaZuEkBPM8j6mLWpT214-vCnG3d0etwZHQrNPx1s8" 
                            alt="Profile" 
-                           sx={{ width: 24, height: 24 }} // Chhota size
+                           sx={{ width: 24, height: 24 }} 
                          />, 
                   path: "/profile-details" 
                 },
